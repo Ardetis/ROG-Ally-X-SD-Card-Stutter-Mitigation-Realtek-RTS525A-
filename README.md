@@ -127,4 +127,14 @@ On some systems, aggressive ASPM can cause latency spikes during link power-stat
 The problematic behavior occurs at the **MMC/SD voltage-switch layer**, not at the PCIe link layer.  
 The Realtek controller transitions into an internal low-power state independent of ASPM and fails during recovery, triggering MMC errors such as:
 
+### Reddit posts:
+A couple of reddit posts describing the same issue
+https://www.reddit.com/r/PCSX2/comments/1jwig10/pcsx2_occasional_frame_drop_every_15_seconds_on/
+https://www.reddit.com/r/ROGAllyX/comments/1i8zgjp/sd_card_stuttersfreeze_ally_x/
+https://www.reddit.com/r/LegionGo/comments/17w7unz/games_running_on_sd_card_have_micro_pauses/
+https://www.reddit.com/r/ROGAlly/comments/1eni0uf/ally_x_sd_card_stutter/
+https://www.reddit.com/r/LegionGo/comments/182j5um/psa_if_you_are_getting_stutterhitchesbad/
+https://www.reddit.com/r/ROGAlly/comments/1hely0k/i_have_rog_ally_x_sandisk_extreme_sd_card/
+https://www.reddit.com/r/ROGAlly/comments/18e726n/sd_card_stuttering/ (older post, old ally)
+https://www.reddit.com/r/EmuDeck/comments/1f37fvs/games_have_minor_stutters_due_to_sd_card/
 
