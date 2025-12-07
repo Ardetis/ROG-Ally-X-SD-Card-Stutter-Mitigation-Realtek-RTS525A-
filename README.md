@@ -1,7 +1,8 @@
-DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite. Will proof read later just wanted to have this publicly available.
+DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite, A windows version could be made. 
+(Will proof read later just wanted to have this publicly available.)
 
 # ROG Ally X – SD Card Stutter Fix  
-**Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround**
+### Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround
 
 This repository documents the diagnosis and workaround for SD card stuttering on the **ASUS ROG Ally X** when using the internal **Realtek RTS525A** SD card reader. The issue causes periodic in-game stutter when running titles from the SD card and produces voltage-switch errors in kernel logs.
 
@@ -9,7 +10,7 @@ The fix below fully eliminates(alleviates) the problem.
 
 ---
 
-**1. Symptoms**
+### 1. Symptoms
 
 - Games/emulators stutter for 1–2 seconds when run from the SD card.
 - No stutter occurs when running the same game from NVMe.
@@ -23,9 +24,9 @@ Kernel logs show errors such as:
 
 ---
 
-**2. Root Cause (Verified Through Testing)**
+### 2. Root Cause (Verified Through Testing)**
 
-**Realtek RTS525A enters a broken low-power state**
+### Realtek RTS525A enters a broken low-power state**
 
 After ~4 seconds of no SD activity, the controller:
 
@@ -48,7 +49,7 @@ Tests showed:
 
 ---
 
-**3. The Fix: A Lightweight Write-Based Keep-Alive**
+### 3. The Fix: A Lightweight Write-Based Keep-Alive
 
 A tiny physical write every 3 seconds prevents the controller from entering its unstable idle state.
 
@@ -66,7 +67,7 @@ This was validated experimentally:
 
 ---
 
-**4. Script + Systemd User Service**
+### 4. Script + Systemd User Service
 
 after creating scripts use the following to enable service:
 
@@ -76,7 +77,7 @@ systemctl --user start sd-keepalive.service
 
 ---
 
-**5. Wear and Power Usage**
+### 5. Wear and Power Usage
 NAND wear
 
 At 1 byte every 3 seconds during 3 hours/day of gaming:
@@ -87,7 +88,7 @@ At 1 byte every 3 seconds during 3 hours/day of gaming:
 
 ---
 
-**6. Final Diagnosis**
+### 6. Final Diagnosis
 
 Problem:
 Realtek RTS525A voltage-switch failures when recovering from deep idle.
@@ -103,7 +104,7 @@ Prevent the controller from entering the problematic idle state via a lightweigh
 
 ---
 
-**7. Notes on PCIe ASPM (Active State Power Management)**
+### 7. Notes on PCIe ASPM (Active State Power Management)
 
 ASPM was investigated because the Realtek RTS525A SD reader is a PCIe device.  
 On some systems, aggressive ASPM can cause latency spikes during link power-state transitions.
