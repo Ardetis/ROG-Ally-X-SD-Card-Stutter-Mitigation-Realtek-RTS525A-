@@ -80,8 +80,14 @@ systemctl --user start sd-keepalive.service
 ### 5. Wear and Power Usage
 NAND wear
 
-At 1 byte every 3 seconds during 3 hours/day of gaming:
+At 1 byte every 3 seconds
 
+24 hours/day:
+~28 KB/day
+~10 MB/year
+~50 MB over 5 years
+
+3 hours/day:
 ~3.6 KB/day
 ~1.25 MB/year
 ~6 MB over 5 years
