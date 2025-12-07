@@ -1,5 +1,5 @@
 DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite, A windows version could be made. 
-(Will proof read later just wanted to have this publicly available.)
+(I will proof read later, I just wanted to have this publicly available.)
 
 # ROG Ally X – SD Card Stutter Fix  
 ### Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround
