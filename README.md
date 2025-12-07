@@ -6,7 +6,7 @@ DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this te
 
 This repository documents the diagnosis and workaround for SD card stuttering on the **ASUS ROG Ally X** when using the internal **Realtek RTS525A** SD card reader. The issue causes periodic in-game stutter when running titles from the SD card and produces voltage-switch errors in kernel logs.
 
-The fix below fully eliminates(alleviates) the problem.
+The fix below fully eliminates the problem.
 
 ---
 
