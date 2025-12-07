@@ -1,4 +1,4 @@
-DISCLAIMER: I have used chatgpt to help me diagnose this issue. This was tested on a Rog Ally X running bazzite. Will proof read later just wanted to have this publicly available.
+DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite. Will proof read later just wanted to have this publicly available.
 
 # ROG Ally X – SD Card Stutter Fix  
 ### Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround
