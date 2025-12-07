@@ -1,0 +1,16 @@
+SD Card Keep-Alive – Installation Instructions
+
+Make both scripts executable:
+
+chmod +x sd_keepalive.sh
+chmod +x setup_sd_keepalive.sh
+
+./setup_sd_keepalive.sh
+systemctl --user status sd-keepalive.service
+
+
+Optional: Remove/disable the service
+
+Make the removal script executable:
+chmod +x remove_sd_keepalive.sh
+./remove_sd_keepalive.sh
