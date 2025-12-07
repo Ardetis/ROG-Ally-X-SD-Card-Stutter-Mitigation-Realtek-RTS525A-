@@ -74,6 +74,7 @@ systemctl --user daemon-reload
 systemctl --user enable sd-keepalive.service
 systemctl --user start sd-keepalive.service
 
+---
 
 **5. Wear and Power Usage**
 NAND wear
@@ -83,6 +84,8 @@ At 1 byte every 3 seconds during 3 hours/day of gaming:
 ~3.6 KB/day
 ~1.25 MB/year
 ~6 MB over 5 years
+
+---
 
 **6. Final Diagnosis**
 
@@ -97,6 +100,8 @@ Stalls SD I/O for 1–2 seconds → gameplay stutter.
 
 Solution:
 Prevent the controller from entering the problematic idle state via a lightweight periodic 1-byte write.
+
+---
 
 **7. Notes on PCIe ASPM (Active State Power Management)**
 
