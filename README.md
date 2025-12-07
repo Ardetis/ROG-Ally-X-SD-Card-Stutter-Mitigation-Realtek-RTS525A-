@@ -1,4 +1,4 @@
-DISCLAIMER: I have used chatgpt to help me diagnose this issue. This was tested on a Rog Ally X running bazzite.
+DISCLAIMER: I have used chatgpt to help me diagnose this issue. This was tested on a Rog Ally X running bazzite. Will proof read later just wanted to have this publicly available.
 
 # ROG Ally X – SD Card Stutter Fix  
 ### Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround
@@ -97,3 +97,22 @@ Stalls SD I/O for 1–2 seconds → gameplay stutter.
 
 Solution:
 Prevent the controller from entering the problematic idle state via a lightweight periodic 1-byte write.
+
+**7. Notes on PCIe ASPM (Active State Power Management)**
+
+ASPM was investigated because the Realtek RTS525A SD reader is a PCIe device.  
+On some systems, aggressive ASPM can cause latency spikes during link power-state transitions.
+
+### Findings from testing on the ROG Ally X
+
+- The usual Linux interfaces for adjusting ASPM (`/sys/module/pcie_aspm/parameters/policy`, `/sys/bus/pci/.../link/*`) were either **read-only** or **not writable**.
+- This indicates that ASPM policy is **locked by firmware/BIOS** on the Ally X, and cannot be modified from the operating system.
+- The device consistently stayed in the same link state regardless of attempted configuration.
+- Stuttering and voltage-switch failures continued unchanged.
+
+### Why ASPM is not involved
+
+The problematic behavior occurs at the **MMC/SD voltage-switch layer**, not at the PCIe link layer.  
+The Realtek controller transitions into an internal low-power state independent of ASPM and fails during recovery, triggering MMC errors such as:
+
+
