@@ -1,0 +1,88 @@
+# SD Card Keep-Alive Setup (ROG Ally X – Realtek RTS525A)
+# --------------------------------------------------------
+# This creates a keep-alive script that writes 1 byte every 3 seconds
+# to prevent SD card stutter and voltage-switch errors.
+# It then installs and enables a systemd user service to run it automatically.
+
+# 1. Create the keep-alive script
+mkdir -p ~/.local/bin
+
+cat > ~/.local/bin/sd_keepalive.sh << 'EOF'
+#!/bin/bash
+
+# SD-card keep-alive for ROG Ally X (Realtek RTS525A)
+# Writes a 1-byte file every few seconds to prevent the controller/card
+# from entering a faulty low-power state that causes stutter.
+
+CARD_MOUNT="/run/media/$USER/EF8S5"     # Adjust if SD label changes
+KEEPALIVE_FILE="$CARD_MOUNT/.sd_keepalive"
+INTERVAL_SECONDS=3                      # 3 seconds required for stability
+
+log() {
+    printf '[sd_keepalive] %s\n' "$*" >&2
+}
+
+log "Starting SD keep-alive on $CARD_MOUNT (interval: ${INTERVAL_SECONDS}s)"
+
+while true; do
+    if [ -d "$CARD_MOUNT" ]; then
+        # Write a single byte to keep the controller active
+        printf . > "$KEEPALIVE_FILE" 2>/dev/null || log "Failed to write keepalive file"
+    else
+        log "Mount point not found: $CARD_MOUNT"
+    fi
+    sleep "$INTERVAL_SECONDS"
+done
+EOF
+
+chmod +x ~/.local/bin/sd_keepalive.sh
+
+
+# 2. Create the systemd user service
+mkdir -p ~/.config/systemd/user
+
+cat > ~/.config/systemd/user/sd-keepalive.service << 'EOF'
+[Unit]
+Description=SD Card Keep-Alive Service for Realtek RTS525A
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/sd_keepalive.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+EOF
+
+
+# 3. Enable and start the service
+systemctl --user daemon-reload
+systemctl --user enable sd-keepalive.service
+systemctl --user start sd-keepalive.service
+
+
+# 4. Verify it is running
+systemctl --user status sd-keepalive.service
+
+
+# 5. Restart after editing the script (if needed)
+# systemctl --user restart sd-keepalive.service
+
+
+# 6. Stop or disable the service (if needed)
+# systemctl --user stop sd-keepalive.service
+# systemctl --user disable sd-keepalive.service
+
+
+# 7. Diagnostic commands (optional)
+
+# Watch SD voltage-switch errors live:
+# dmesg -w | grep -iE 'mmc|voltage'
+
+# Watch runtime power state of the SD card:
+# watch -n 1 cat /sys/class/mmc_host/mmc0/mmc0:59b4/power/runtime_status
+
+# Check the keepalive file activity:
+# ls -l /run/media/$USER/EF8S5/.sd_keepalive
