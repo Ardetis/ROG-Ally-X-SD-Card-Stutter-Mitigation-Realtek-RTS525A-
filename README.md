@@ -1,7 +1,7 @@
 DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite. Will proof read later just wanted to have this publicly available.
 
 # ROG Ally X – SD Card Stutter Fix  
-### Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround
+**Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround**
 
 This repository documents the diagnosis and workaround for SD card stuttering on the **ASUS ROG Ally X** when using the internal **Realtek RTS525A** SD card reader. The issue causes periodic in-game stutter when running titles from the SD card and produces voltage-switch errors in kernel logs.
 
@@ -25,7 +25,7 @@ Kernel logs show errors such as:
 
 **2. Root Cause (Verified Through Testing)**
 
-### Realtek RTS525A enters a broken low-power state
+**Realtek RTS525A enters a broken low-power state**
 
 After ~4 seconds of no SD activity, the controller:
 
